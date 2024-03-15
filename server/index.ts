@@ -1,5 +1,5 @@
 import { onClientCallback } from '@overextended/ox_lib/server';
-import type { AccessTableData, Account, AccountRole, DashboardData } from '../typings';
+import type { AccessTableData, Account, AccountRole, DashboardData, Transaction } from '../typings';
 import { oxmysql } from '@overextended/oxmysql';
 import { Ox, GetPlayer } from '@overextended/ox_core/server';
 import * as console from 'console';
@@ -113,10 +113,10 @@ onClientCallback('ox_banking:getDashboardData', async (playerId): Promise<Dashbo
     date: string;
     toId?: number;
     fromId?: number;
-    reason: string;
+    message: string;
   }[]>(
     `
-    SELECT amount, date, toId, fromId, reason
+    SELECT amount, date, toId, fromId, message
     FROM accounts_transactions
     WHERE toId = ? OR fromId = ?
     ORDER BY date DESC
@@ -125,24 +125,45 @@ onClientCallback('ox_banking:getDashboardData', async (playerId): Promise<Dashbo
     [account.id, account.id]
   );
 
-  const transactions : {
-    amount: number;
-    date: string;
-    reason: string;
-    type: 'inbound' | 'outbound';
-  }[] = lastTransactions.map((transaction) => {
+  const transactions : Transaction[] = lastTransactions.map((transaction) => {
     return {
       amount: transaction.amount,
       date: transaction.date,
-      reason: transaction.reason,
+      message: transaction.message,
       type: transaction.toId === account.id ? 'inbound' : 'outbound',
     };
   });
 
+  const overview = await oxmysql.rawExecute<{
+    day: string;
+    income: number;
+    expenses: number;
+  }[]>(
+    `
+    SELECT 
+      DAYNAME(d.date) as day,
+      COALESCE(SUM(CASE WHEN at.toId = ? THEN at.amount ELSE 0 END), 0) as income,
+      COALESCE(SUM(CASE WHEN at.fromId = ? THEN at.amount ELSE 0 END), 0) as expenses
+    FROM (
+      SELECT CURDATE() as date
+      UNION ALL SELECT DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+      UNION ALL SELECT DATE_SUB(CURDATE(), INTERVAL 2 DAY)
+      UNION ALL SELECT DATE_SUB(CURDATE(), INTERVAL 3 DAY)
+      UNION ALL SELECT DATE_SUB(CURDATE(), INTERVAL 4 DAY)
+      UNION ALL SELECT DATE_SUB(CURDATE(), INTERVAL 5 DAY)
+      UNION ALL SELECT DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+    ) d
+    LEFT JOIN accounts_transactions at ON d.date = DATE(at.date) AND (at.toId = ? OR at.fromId = ?)
+    GROUP BY d.date
+    ORDER BY d.date ASC
+    `,
+    [account.id, account.id, account.id, account.id]
+  );
+
   return {
     balance: account.balance,
-    overview: [],
-    transactions: transactions,
+    overview,
+    transactions,
     invoices: [],
   };
 });

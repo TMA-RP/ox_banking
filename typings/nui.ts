@@ -5,6 +5,13 @@ export type AccessTableUser = {
   stateId: string;
 };
 
+export interface Transaction {
+    date: string;
+    amount: number;
+    message: string;
+    type: 'inbound' | 'outbound';
+}
+
 export interface DashboardData {
   balance: number;
   overview?: {
@@ -12,12 +19,7 @@ export interface DashboardData {
     income: number;
     expenses: number;
   }[];
-  transactions?: {
-    date: string;
-    amount: number;
-    reason: string;
-    type: 'inbound' | 'outbound';
-  }[];
+  transactions?: Transaction[];
   invoices?: {
     paid: boolean;
     amount: number;
