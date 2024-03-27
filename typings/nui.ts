@@ -6,10 +6,10 @@ export type AccessTableUser = {
 };
 
 export interface Transaction {
-    date: string;
-    amount: number;
-    message: string;
-    type: 'inbound' | 'outbound';
+  date: string;
+  amount: number;
+  type: 'inbound' | 'outbound';
+  message?: string;
 }
 
 export interface DashboardData {
