@@ -31,6 +31,7 @@ const openBank = () => {
 exports('openBank', openBank);
 
 const createBankBlip = (coords: number[]) => {
+  return
   const blip = AddBlipForCoord(coords[0], coords[1], coords[2]);
   SetBlipSprite(blip, 207);
   SetBlipColour(blip, 2);
@@ -65,9 +66,7 @@ if (usingTarget) {
       coords: target.coords,
       size: target.size,
       rotation: target.rotation,
-      debug: true,
       interactionDistance: 1.3,
-      drawSprite: true,
       options: [
         {
           name: 'access_bank',

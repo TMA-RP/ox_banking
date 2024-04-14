@@ -62,5 +62,6 @@
     "manager_description": "Gestionnaire - Dépôt, retrait, transfert et journaux autorisés",
     "remove_user_warning": "Êtes-vous sûr de vouloir supprimer l'accès au compte de l'utilisateur avec l'ID d'état %s?",
     "remove_account_access": "Supprimer l'accès au compte",
-    "state_id_not_exists": "Aucune personne avec un tel ID d'état trouvé."
+    "state_id_not_exists": "Aucune personne avec un tel ID d'état trouvé.",
+    "no_message": "Pas de message"
 }
