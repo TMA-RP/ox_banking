@@ -51,7 +51,7 @@ if (usingTarget) {
     {
       name: 'access_atm',
       icon: 'fa-solid fa-money-check',
-      label: 'Access ATM',
+      label: 'Accéder au distributeur',
       onSelect: () => {
         // todo: open atm
         openBank();
@@ -71,7 +71,7 @@ if (usingTarget) {
         {
           name: 'access_bank',
           icon: 'fa-solid fa-dollar-sign',
-          label: 'Access bank',
+          label: 'Accéder à la banque',
           onSelect: () => {
             openBank();
           },
