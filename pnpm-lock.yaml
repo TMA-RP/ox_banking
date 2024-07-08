@@ -15,8 +15,8 @@ importers:
         specifier: latest
         version: 0.0.20
       '@overextended/ox_core':
-        specifier: ^0.21.1
-        version: 0.21.1
+        specifier: ^0.27.1
+        version: 0.27.1
       '@overextended/ox_lib':
         specifier: latest
         version: 3.16.2
@@ -195,15 +195,18 @@ packages:
   '@nativewrappers/fivem-server@0.0.20':
     resolution: {integrity: sha512-u7Wm56NqIItqEKA3k2kRbCoxUJqSpBA+woIWBgewqmZTFSYg1cZRTgj2W1Q5huXZk2Yp0H25bHzn7w3c6Aj1xQ==}
 
-  '@overextended/ox_core@0.21.1':
-    resolution: {integrity: sha512-aQrCrbzBQB21Kvkirv0/2gSWkSe98ybAN4RVYGdJjbycdZf3/94piuuj8eqztg2OvtoZbwX9nBk/Rquiwo82yw==}
+  '@nativewrappers/fivem@0.0.28':
+    resolution: {integrity: sha512-PVv2dcAkgh78LH/gQ+PNVg8xGM3vUrwU5N9sTvKI8DTqfInIHJkoBXvd0+0muDU9J5OyAFUPkwbPzCn7H9ZSNQ==}
+
+  '@overextended/ox_core@0.27.1':
+    resolution: {integrity: sha512-B0mbidWDgqTkDykwb1w5W/rUJ4w4oUHRpvStU3DkU0rdWUXO7+An7O1xSHpVhgDfKyiPr2GK+1goobjI5LHH7w==}
     engines: {node: '>=16.9.1'}
 
   '@overextended/ox_lib@3.16.2':
     resolution: {integrity: sha512-1QwoJtKHMoFkUi15G2EKt30tLVkn3mv9AXXD3iZyQR+b0OiVM/JLJaijS/qQSFENlS75S84LhNHqom5q1ZCGSg==}
 
-  '@overextended/ox_lib@3.16.3':
-    resolution: {integrity: sha512-vqx/WAey/DJIokzBB8fv76IlUBdMf/yWmuN/Rs44qFB8Zbg7sWPWprRRVXcCo65QaCfJS0Lo2i/OZQcBq/LhKQ==}
+  '@overextended/ox_lib@3.23.1':
+    resolution: {integrity: sha512-dMLvgreCv7iMjAQBzoNv7YqRpqjiOZMtGXiunqTP+f0Vs9qkWWExWz8bAd1UMh7l9HDzFaKjqSQajupWPl8lZA==}
 
   '@overextended/oxmysql@1.3.0':
     resolution: {integrity: sha512-dpbcAT8HHUQiXyQMb0ei46tUEeCbh9mAgDf4y2vofPp+E3g4QEW8rh0/LuI510VLzJQ7gvTbalQSL84IiCncCw==}
@@ -211,14 +214,17 @@ packages:
   '@types/geojson@7946.0.14':
     resolution: {integrity: sha512-WCfD5Ht3ZesJUsONdhvm84dmzWOiOzOAqOncN0++w0lBw1o8OuDNJF2McvvCef/yBqb/HYRahp1BYtODFQ8bRg==}
 
-  '@types/node@17.0.45':
-    resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
-
   '@types/node@20.11.16':
     resolution: {integrity: sha512-gKb0enTmRCzXSSUJDq6/sPcqrfCv2mkkG6Jt/clpn5eiCbKTY+SgZUxo+p8ZKMof5dCp9vHQUAB7wOUTod22wQ==}
 
+  '@types/node@20.14.10':
+    resolution: {integrity: sha512-MdiXf+nDuMvY0gJKxyfZ7/6UFsETO7mGKF54MVD/ekJS6HdFtpZFBgrh6Pseu64XTb2MLyFPlbW6hj8HYRQNOQ==}
+
   boolean@3.2.0:
     resolution: {integrity: sha512-d0II/GO9uf9lfUHH2BQsjxzRJZBdsjgsBiW4BvhWk/3qoKwQFjIDVN19PfX8F2D/r9PCMTtLWjYVCFrpeYUzsw==}
+
+  csstype@3.1.3:
+    resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
   denque@2.1.0:
     resolution: {integrity: sha512-HVQE3AAb/pxF8fQAoiqpvg9i3evqug3hoiwakOyZAwJm+6vZehbkYXZ0l4JxS+I3QxM97v5aaRNhj8v5oBhekw==}
@@ -241,9 +247,9 @@ packages:
     resolution: {integrity: sha512-2bIM8x+VAf6JT4bKAljS1qUWgMsqZRPGJS6FSahIMPVvctcNhyVp7AJu7quxOW9jwkryBReKZY5tY5JYv2n/7Q==}
     engines: {node: 14 || >=16.14}
 
-  mariadb@3.2.3:
-    resolution: {integrity: sha512-Hyc1ehdUJwzvvzcLU2juZS528wJ6oE8pUlpgY0BAOdpKWcdN1motuugi5lC3jkpCkFpyNknHG7Yg66KASl3aPg==}
-    engines: {node: '>= 12'}
+  mariadb@3.3.1:
+    resolution: {integrity: sha512-L8bh4iuZU3J8H7Co7rQ6OY9FDLItAN1rGy8kPA7Dyxo8AiHADuuONoypKKp1pE09drs6e5LR7UW9luLZ/A4znA==}
+    engines: {node: '>= 14'}
 
   prettier@3.2.4:
     resolution: {integrity: sha512-FWu1oLHKCrtpO1ypU6J0SbK2d9Ckwysq6bHj/uaCP26DxrPpppCLQRGVuqAxSTvhF00AcvDRyYrLNW7ocBhFFQ==}
@@ -255,6 +261,11 @@ packages:
 
   typescript@5.3.3:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.5.3:
+    resolution: {integrity: sha512-/hreyEujaB0w76zKo6717l3L0o/qEUtRgdvUBvlkhoWeOVMjMuHNHk0BRBzikzuGDqNmPQbg5ifMEqsHLiIUcQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -340,10 +351,13 @@ snapshots:
 
   '@nativewrappers/fivem-server@0.0.20': {}
 
-  '@overextended/ox_core@0.21.1':
+  '@nativewrappers/fivem@0.0.28': {}
+
+  '@overextended/ox_core@0.27.1':
     dependencies:
-      '@overextended/ox_lib': 3.16.3
-      mariadb: 3.2.3
+      '@nativewrappers/fivem': 0.0.28
+      '@overextended/ox_lib': 3.23.1
+      mariadb: 3.3.1
 
   '@overextended/ox_lib@3.16.2':
     dependencies:
@@ -351,23 +365,28 @@ snapshots:
       fast-printf: 1.6.9
       typescript: 5.3.3
 
-  '@overextended/ox_lib@3.16.3':
+  '@overextended/ox_lib@3.23.1':
     dependencies:
       '@nativewrappers/client': 1.7.33
+      csstype: 3.1.3
       fast-printf: 1.6.9
-      typescript: 5.3.3
+      typescript: 5.5.3
 
   '@overextended/oxmysql@1.3.0': {}
 
   '@types/geojson@7946.0.14': {}
 
-  '@types/node@17.0.45': {}
-
   '@types/node@20.11.16':
     dependencies:
       undici-types: 5.26.5
 
+  '@types/node@20.14.10':
+    dependencies:
+      undici-types: 5.26.5
+
   boolean@3.2.0: {}
+
+  csstype@3.1.3: {}
 
   denque@2.1.0: {}
 
@@ -407,10 +426,10 @@ snapshots:
 
   lru-cache@10.2.0: {}
 
-  mariadb@3.2.3:
+  mariadb@3.3.1:
     dependencies:
       '@types/geojson': 7946.0.14
-      '@types/node': 17.0.45
+      '@types/node': 20.14.10
       denque: 2.1.0
       iconv-lite: 0.6.3
       lru-cache: 10.2.0
@@ -420,5 +439,7 @@ snapshots:
   safer-buffer@2.1.2: {}
 
   typescript@5.3.3: {}
+
+  typescript@5.5.3: {}
 
   undici-types@5.26.5: {}
