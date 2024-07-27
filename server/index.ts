@@ -58,7 +58,7 @@ onClientCallback('ox_banking:deleteAccount', async (playerId, accountId: number)
 	const player = GetPlayer(playerId);
 
 	if (!player?.hasAccountPermission(accountId, 'closeAccount')) return;
-
+	console.log("la")
 	return await Ox.DeleteAccount(accountId);
 });
 
@@ -234,8 +234,7 @@ onClientCallback(
 
 		// todo locale
 		if (!success) return 'No person with provided state id found.';
-
-		return await Ox.SetAccountAccess(accountId, player.charId, role);
+		return await Ox.SetAccountAccess(accountId, stateId, role);
 	}
 );
 
