@@ -15,41 +15,41 @@ importers:
         specifier: latest
         version: 0.0.20
       '@overextended/ox_core':
-        specifier: ^0.27.1
-        version: 0.27.1
+        specifier: ^0.28.1
+        version: 0.28.1
       '@overextended/ox_lib':
         specifier: latest
-        version: 3.16.2
+        version: 3.23.1
       '@overextended/oxmysql':
         specifier: latest
         version: 1.3.0
     devDependencies:
       '@citizenfx/client':
         specifier: latest
-        version: 2.0.7401-1
+        version: 2.0.8860-1
       '@citizenfx/server':
         specifier: latest
-        version: 2.0.7401-1
+        version: 2.0.8860-1
       '@types/node':
-        specifier: ^20.11.5
-        version: 20.11.16
+        specifier: ^20.14.10
+        version: 20.14.10
       esbuild:
-        specifier: ^0.19.11
+        specifier: ^0.19.12
         version: 0.19.12
       prettier:
-        specifier: ^3.2.4
-        version: 3.2.4
+        specifier: ^3.3.2
+        version: 3.3.2
       typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
+        specifier: ^5.5.3
+        version: 5.5.3
 
 packages:
 
-  '@citizenfx/client@2.0.7401-1':
-    resolution: {integrity: sha512-K4bE2joWkO998UKZIMW61x9LhPSAWiEpXL2j3OlzFPDCcTcYteveuuOydeOeflrlNxHJoEeyXSCEOVHslzjm7Q==}
+  '@citizenfx/client@2.0.8860-1':
+    resolution: {integrity: sha512-s6ZtaNsvohq2dJczVMnP6ptLruEBjP1+pbky+izOBGx4E2Zpe1Jo3wQBA6YeWgqlOtIS968VmMlOsoTVrJ5kaA==}
 
-  '@citizenfx/server@2.0.7401-1':
-    resolution: {integrity: sha512-1dA4SZzpSmBb0rNzTc56jDbY18AjsmVwJC739DgFYQKFnPh4ahUL87FVLIZQDVq5bSnPq2PlE/frEiIOhYleww==}
+  '@citizenfx/server@2.0.8860-1':
+    resolution: {integrity: sha512-TkBRem1gCKYWhbDf3slkMpJk/M+HPnY0UWDrMh5nbN08eZ+LWFegIQ1BNvpMMnsTPGcs+BNmuCh8mzup3OVfTQ==}
 
   '@esbuild/aix-ppc64@0.19.12':
     resolution: {integrity: sha512-bmoCYyWdEL3wDQIVbcyzRyeKLgk2WtWLTWz1ZIAZF/EGbNOwSA6ew3PftJ1PqMiOOGu0OyFMzG53L0zqIpPeNA==}
@@ -198,12 +198,9 @@ packages:
   '@nativewrappers/fivem@0.0.28':
     resolution: {integrity: sha512-PVv2dcAkgh78LH/gQ+PNVg8xGM3vUrwU5N9sTvKI8DTqfInIHJkoBXvd0+0muDU9J5OyAFUPkwbPzCn7H9ZSNQ==}
 
-  '@overextended/ox_core@0.27.1':
-    resolution: {integrity: sha512-B0mbidWDgqTkDykwb1w5W/rUJ4w4oUHRpvStU3DkU0rdWUXO7+An7O1xSHpVhgDfKyiPr2GK+1goobjI5LHH7w==}
+  '@overextended/ox_core@0.28.1':
+    resolution: {integrity: sha512-PuiEWgwVW09kDCt2JOKqFa1BTbtYwBvz3leTR9sD8N09B+WuEXKoc/Hnvjr1+3EmMoZvnwkEg81ZcgqcMOltzQ==}
     engines: {node: '>=16.9.1'}
-
-  '@overextended/ox_lib@3.16.2':
-    resolution: {integrity: sha512-1QwoJtKHMoFkUi15G2EKt30tLVkn3mv9AXXD3iZyQR+b0OiVM/JLJaijS/qQSFENlS75S84LhNHqom5q1ZCGSg==}
 
   '@overextended/ox_lib@3.23.1':
     resolution: {integrity: sha512-dMLvgreCv7iMjAQBzoNv7YqRpqjiOZMtGXiunqTP+f0Vs9qkWWExWz8bAd1UMh7l9HDzFaKjqSQajupWPl8lZA==}
@@ -213,9 +210,6 @@ packages:
 
   '@types/geojson@7946.0.14':
     resolution: {integrity: sha512-WCfD5Ht3ZesJUsONdhvm84dmzWOiOzOAqOncN0++w0lBw1o8OuDNJF2McvvCef/yBqb/HYRahp1BYtODFQ8bRg==}
-
-  '@types/node@20.11.16':
-    resolution: {integrity: sha512-gKb0enTmRCzXSSUJDq6/sPcqrfCv2mkkG6Jt/clpn5eiCbKTY+SgZUxo+p8ZKMof5dCp9vHQUAB7wOUTod22wQ==}
 
   '@types/node@20.14.10':
     resolution: {integrity: sha512-MdiXf+nDuMvY0gJKxyfZ7/6UFsETO7mGKF54MVD/ekJS6HdFtpZFBgrh6Pseu64XTb2MLyFPlbW6hj8HYRQNOQ==}
@@ -243,26 +237,21 @@ packages:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
 
-  lru-cache@10.2.0:
-    resolution: {integrity: sha512-2bIM8x+VAf6JT4bKAljS1qUWgMsqZRPGJS6FSahIMPVvctcNhyVp7AJu7quxOW9jwkryBReKZY5tY5JYv2n/7Q==}
-    engines: {node: 14 || >=16.14}
+  lru-cache@10.4.0:
+    resolution: {integrity: sha512-bfJaPTuEiTYBu+ulDaeQ0F+uLmlfFkMgXj4cbwfuMSjgObGMzb55FMMbDvbRU0fAHZ4sLGkz2mKwcMg8Dvm8Ww==}
+    engines: {node: '>=18'}
 
   mariadb@3.3.1:
     resolution: {integrity: sha512-L8bh4iuZU3J8H7Co7rQ6OY9FDLItAN1rGy8kPA7Dyxo8AiHADuuONoypKKp1pE09drs6e5LR7UW9luLZ/A4znA==}
     engines: {node: '>= 14'}
 
-  prettier@3.2.4:
-    resolution: {integrity: sha512-FWu1oLHKCrtpO1ypU6J0SbK2d9Ckwysq6bHj/uaCP26DxrPpppCLQRGVuqAxSTvhF00AcvDRyYrLNW7ocBhFFQ==}
+  prettier@3.3.2:
+    resolution: {integrity: sha512-rAVeHYMcv8ATV5d508CFdn+8/pHPpXeIid1DdrPwXnaAdH7cqjVbpJaT5eq4yRAFU/lsbwYwSF/n5iNrdJHPQA==}
     engines: {node: '>=14'}
     hasBin: true
 
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
-
-  typescript@5.3.3:
-    resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
 
   typescript@5.5.3:
     resolution: {integrity: sha512-/hreyEujaB0w76zKo6717l3L0o/qEUtRgdvUBvlkhoWeOVMjMuHNHk0BRBzikzuGDqNmPQbg5ifMEqsHLiIUcQ==}
@@ -274,9 +263,9 @@ packages:
 
 snapshots:
 
-  '@citizenfx/client@2.0.7401-1': {}
+  '@citizenfx/client@2.0.8860-1': {}
 
-  '@citizenfx/server@2.0.7401-1': {}
+  '@citizenfx/server@2.0.8860-1': {}
 
   '@esbuild/aix-ppc64@0.19.12':
     optional: true
@@ -353,17 +342,11 @@ snapshots:
 
   '@nativewrappers/fivem@0.0.28': {}
 
-  '@overextended/ox_core@0.27.1':
+  '@overextended/ox_core@0.28.1':
     dependencies:
       '@nativewrappers/fivem': 0.0.28
       '@overextended/ox_lib': 3.23.1
       mariadb: 3.3.1
-
-  '@overextended/ox_lib@3.16.2':
-    dependencies:
-      '@nativewrappers/client': 1.7.33
-      fast-printf: 1.6.9
-      typescript: 5.3.3
 
   '@overextended/ox_lib@3.23.1':
     dependencies:
@@ -375,10 +358,6 @@ snapshots:
   '@overextended/oxmysql@1.3.0': {}
 
   '@types/geojson@7946.0.14': {}
-
-  '@types/node@20.11.16':
-    dependencies:
-      undici-types: 5.26.5
 
   '@types/node@20.14.10':
     dependencies:
@@ -424,7 +403,7 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
-  lru-cache@10.2.0: {}
+  lru-cache@10.4.0: {}
 
   mariadb@3.3.1:
     dependencies:
@@ -432,13 +411,11 @@ snapshots:
       '@types/node': 20.14.10
       denque: 2.1.0
       iconv-lite: 0.6.3
-      lru-cache: 10.2.0
+      lru-cache: 10.4.0
 
-  prettier@3.2.4: {}
+  prettier@3.3.2: {}
 
   safer-buffer@2.1.2: {}
-
-  typescript@5.3.3: {}
 
   typescript@5.5.3: {}
 

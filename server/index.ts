@@ -2,8 +2,6 @@ import { onClientCallback } from '@overextended/ox_lib/server';
 import type { AccessTableData, Account, AccountRole, DashboardData, Transaction } from '../typings';
 import { oxmysql } from '@overextended/oxmysql';
 import { Ox, GetPlayer } from '@overextended/ox_core/server';
-import * as console from 'console';
-import { GetCharIdFromStateId } from '@overextended/ox_core/package/server/player/db';
 
 type GetAccountsReponse = {
 	id: Account['id'];
@@ -57,10 +55,7 @@ onClientCallback('ox_banking:createAccount', async (playerId, { name, shared }: 
 });
 
 onClientCallback('ox_banking:deleteAccount', async (playerId, accountId: number) => {
-	const { charId } = GetPlayer(playerId);
-	const role = charId && (await Ox.GetAccountRole(accountId, charId));
-
-	if (role !== 'owner' && role !== 'manager') return;
+	if (!GetPlayer(playerId)?.hasAccountPermission(accountId, 'closeAccount')) return;
 
 	return await Ox.DeleteAccount(accountId);
 });
@@ -88,10 +83,9 @@ onClientCallback('ox_banking:withdrawMoney', async (playerId, { accountId, amoun
 onClientCallback(
 	'ox_banking:transferMoney',
 	async (playerId, { fromAccountId, target, transferType, amount }: TransferBalance) => {
-		const { charId } = GetPlayer(playerId);
-		const role = charId && (await Ox.GetAccountRole(fromAccountId, charId));
+		const player = GetPlayer(playerId);
 
-		if (role !== 'owner' && role !== 'manager') return;
+		if (player?.hasAccountPermission(fromAccountId, 'withdraw')) return;
 
 		const targetAccountId =
 			transferType === 'account' ? (target as number) : (await Ox.GetCharacterAccount(target))?.id;
@@ -101,7 +95,8 @@ onClientCallback(
 			return await Ox.TransferAccountBalance({
 				fromId: fromAccountId,
 				toId: targetAccountId,
-				amount: amount
+				amount: amount,
+				actorId: player.charId,
 			});
 		}
 	}
@@ -112,11 +107,13 @@ onClientCallback('ox_banking:getDashboardData', async (playerId): Promise<Dashbo
 
 	if (!account) return;
 
-	const overview = await oxmysql.rawExecute<{
-		day: string;
-		income: number;
-		expenses: number;
-	}[]>(
+	const overview = await oxmysql.rawExecute<
+		{
+			day: string;
+			income: number;
+			expenses: number;
+		}[]
+	>(
 		`
     SELECT
       DAYNAME(d.date) as day,
@@ -138,13 +135,15 @@ onClientCallback('ox_banking:getDashboardData', async (playerId): Promise<Dashbo
 		[account.id, account.id, account.id, account.id]
 	);
 
-	const lastTransactions = await oxmysql.rawExecute<{
-		amount: number;
-		date: string;
-		toId?: number;
-		fromId?: number;
-		message?: string;
-	}[]>(
+	const lastTransactions = await oxmysql.rawExecute<
+		{
+			amount: number;
+			date: string;
+			toId?: number;
+			fromId?: number;
+			message?: string;
+		}[]
+	>(
 		`
     SELECT amount, date, toId, fromId, message
     FROM accounts_transactions
@@ -215,24 +214,26 @@ onClientCallback(
 	'ox_banking:addUserToAccount',
 	async (
 		playerId,
-		data: {
+		{
+			accountId,
+			stateId,
+			role,
+		}: {
 			accountId: number;
 			stateId: string;
 			role: string;
 		}
 	) => {
-		const { accountId, stateId, role } = data;
-		const { charId } = GetPlayer(playerId);
-		const userRole = await Ox.GetAccountRole(accountId, charId);
+		const player = GetPlayer(playerId);
 
-		if (userRole !== 'owner' && userRole !== 'manager') return;
+		if (!player?.hasAccountPermission(accountId, 'addUser')) return;
 
 		const success = await oxmysql.prepare('SELECT 1 FROM `characters` WHERE `stateId` = ?', [stateId]);
 
 		// todo locale
 		if (!success) return 'No person with provided state id found.';
 
-		return await Ox.SetAccountAccess(accountId, charId, role);
+		return await Ox.SetAccountAccess(accountId, player.charId, role);
 	}
 );
 
@@ -246,20 +247,18 @@ onClientCallback(
 			values: { role: string };
 		}
 	): Promise<boolean> => {
-		const { charId } = GetPlayer(playerId);
-		const role = await Ox.GetAccountRole(data.accountId, charId);
+		const player = GetPlayer(playerId);
 
-		if (role !== 'owner') return false;
+		if (player?.hasAccountPermission(data.accountId, 'manageUser')) return;
 
 		return (await Ox.SetAccountAccess(data.accountId, data.targetStateId, data.values.role)) > 0;
 	}
 );
 
 onClientCallback('ox_banking:removeUser', async (playerId, data: { targetStateId: string; accountId: number }) => {
-	const { charId } = GetPlayer(playerId);
-	const role = await Ox.GetAccountRole(data.accountId, charId);
+	const player = GetPlayer(playerId);
 
-	if (role !== 'owner' && role !== 'manager') return;
+	if (player?.hasAccountPermission(data.accountId, 'removeUser')) return;
 
 	return await Ox.RemoveAccountAccess(data.accountId, data.targetStateId);
 });
@@ -273,12 +272,9 @@ onClientCallback(
 			accountId: number;
 		}
 	): Promise<true | 'state_id_not_exists'> => {
-		// todo: move to ox_core
+		const player = GetPlayer(playerId);
 
-		const { charId } = GetPlayer(playerId);
-		const accountRole = await Ox.GetAccountRole(data.accountId, charId);
-
-		if (accountRole !== 'owner') return;
+		if (player?.hasAccountPermission(data.accountId, 'transferOwnership')) return;
 
 		const targetCharId = await oxmysql.prepare<number | null>('SELECT `charId` FROM `characters` WHERE `stateId` = ?', [
 			data.targetStateId,
@@ -295,7 +291,7 @@ onClientCallback(
 
 		await oxmysql.prepare("UPDATE `accounts_access` SET `role` = 'manager' WHERE `accountId` = ? AND `charId` = ?", [
 			data.accountId,
-			charId,
+			player.charId,
 		]);
 
 		return true;

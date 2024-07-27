@@ -5,80 +5,80 @@ import { queryClient } from '@/main';
 import { fetchNui } from '@/utils/fetchNui';
 
 const [accountsDataAtom] = atomsWithQuery<{ numberOfPages: number; accounts: Account[] }>(
-  () => ({
-    queryKey: ['accounts'],
-    queryFn: async () => {
-      const accounts = await fetchNui<Account[]>('getAccounts', null, {
-        data: [
-          {
-            id: 932122,
-            balance: 132032,
-            isDefault: true,
-            label: 'Some name',
-            owner: 'Some owner',
-            type: 'personal',
-            role: 'owner',
-          },
-          {
-            id: 932123,
-            balance: 132032,
-            label: 'Some name',
-            owner: 'Some owner',
-            type: 'shared',
-            role: 'owner',
-          },
-          {
-            id: 932124,
-            balance: 132032,
-            label: 'Some name',
-            owner: 'Some owner',
-            type: 'personal',
-            role: 'owner',
-          },
-          {
-            id: 932125,
-            balance: 132032,
-            label: 'Some name',
-            owner: 'Some owner',
-            type: 'personal',
-            role: 'owner',
-          },
-          {
-            id: 932126,
-            balance: 132032,
-            label: 'Some name',
-            owner: 'Some owner',
-            type: 'personal',
-            role: 'owner',
-          },
-          {
-            id: 932127,
-            balance: 132032,
-            label: 'Some name',
-            owner: 'Some owner',
-            type: 'personal',
-            role: 'owner',
-          },
-          {
-            id: 932128,
-            balance: 132032,
-            label: 'Some name',
-            owner: 'Some owner',
-            type: 'personal',
-            role: 'owner',
-          },
-        ],
-      });
+	() => ({
+		queryKey: ['accounts'],
+		queryFn: async () => {
+			const accounts = await fetchNui<Account[]>('getAccounts', null, {
+				data: [
+					{
+						id: 932122,
+						balance: 132032,
+						isDefault: true,
+						label: 'Some name',
+						owner: 'Some owner',
+						type: 'personal',
+						role: 'owner',
+					},
+					{
+						id: 932123,
+						balance: 132032,
+						label: 'Some name',
+						owner: 'Some owner',
+						type: 'shared',
+						role: 'owner',
+					},
+					{
+						id: 932124,
+						balance: 132032,
+						label: 'Some name',
+						owner: 'Some owner',
+						type: 'personal',
+						role: 'owner',
+					},
+					{
+						id: 932125,
+						balance: 132032,
+						label: 'Some name',
+						owner: 'Some owner',
+						type: 'personal',
+						role: 'owner',
+					},
+					{
+						id: 932126,
+						balance: 132032,
+						label: 'Some name',
+						owner: 'Some owner',
+						type: 'personal',
+						role: 'owner',
+					},
+					{
+						id: 932127,
+						balance: 132032,
+						label: 'Some name',
+						owner: 'Some owner',
+						type: 'personal',
+						role: 'owner',
+					},
+					{
+						id: 932128,
+						balance: 132032,
+						label: 'Some name',
+						owner: 'Some owner',
+						type: 'personal',
+						role: 'owner',
+					},
+				],
+			});
 
-      console.log(JSON.stringify(accounts, null, 2));
+			//   console.log(JSON.stringify(accounts, null, 2));
 
-      return {
-        accounts,
-        numberOfPages: Math.ceil((accounts.length + 1) / 4),
-      };
-    },
-  }),
-  () => queryClient,
+			return {
+				accounts,
+				numberOfPages: Math.ceil((accounts.length + 1) / 4),
+			};
+		},
+	}),
+	() => queryClient,
 );
 
 const activeAccountAtom = atom<Account | null>(null);
