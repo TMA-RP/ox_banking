@@ -70,8 +70,6 @@ const [accountsDataAtom] = atomsWithQuery<{ numberOfPages: number; accounts: Acc
 				],
 			});
 
-			//   console.log(JSON.stringify(accounts, null, 2));
-
 			return {
 				accounts,
 				numberOfPages: Math.ceil((accounts.length + 1) / 4),
@@ -88,22 +86,22 @@ export const useActiveAccount = () => useAtomValue(activeAccountAtom);
 export const useSetActiveAccount = () => useSetAtom(activeAccountAtom);
 
 export function updateAccountProperty<K extends keyof Account>(
-  accountId: number,
-  propertyKey: K,
-  propertyValue: Account[K]
+	accountId: number,
+	propertyKey: K,
+	propertyValue: Account[K]
 ) {
-  queryClient.setQueriesData(
-    { queryKey: ['accounts'] },
-    (data: { numberOfPages: number; accounts: Account[] } | undefined) => {
-      if (!data) return;
+	queryClient.setQueriesData(
+		{ queryKey: ['accounts'] },
+		(data: { numberOfPages: number; accounts: Account[] } | undefined) => {
+			if (!data) return;
 
-      const targetAccount = data.accounts.find((acc) => acc.id === accountId);
+			const targetAccount = data.accounts.find((acc) => acc.id === accountId);
 
-      if (!targetAccount) return;
+			if (!targetAccount) return;
 
-      const account = { ...targetAccount, [propertyKey]: propertyValue } as Account;
+			const account = { ...targetAccount, [propertyKey]: propertyValue } as Account;
 
-      return { ...data, accounts: data.accounts.map((acc) => (acc.id === account.id ? account : acc)) };
-    }
-  );
+			return { ...data, accounts: data.accounts.map((acc) => (acc.id === account.id ? account : acc)) };
+		}
+	);
 }

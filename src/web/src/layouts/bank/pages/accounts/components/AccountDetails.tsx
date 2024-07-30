@@ -47,13 +47,10 @@ const AccountDetails: React.FC = () => {
 						<p>{formatNumber(account.balance)}</p>
 					</div>
 				</div>
-				{account.owner && (
-					<div className="flex flex-col">
-						<p className="text-xs text-muted-foreground">{locales.account_owner}</p>
-						<p>{account.owner}</p>
-					</div>
-				)}
-
+				<div className="flex flex-col">
+					<p className="text-xs text-muted-foreground">{locales.account_owner}</p>
+					<p>{account.owner}</p>
+				</div>
 			</div>
 			<div className="flex h-full flex-col gap-2">
 				<AccountButton
