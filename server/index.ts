@@ -27,7 +27,7 @@ onClientCallback('ox_banking:getAccounts', async (playerId): Promise<Account[]> 
     FROM \`accounts_access\` c
     LEFT JOIN accounts a ON a.id = c.accountId
     LEFT JOIN characters b ON b.charId = a.owner
-    WHERE c.charId = ?
+    WHERE c.charId = ? AND a.type != 'inactive'
     `,
 		[player.charId]
 	);
@@ -75,11 +75,15 @@ interface TransferBalance {
 }
 
 onClientCallback('ox_banking:depositMoney', async (playerId, { accountId, amount }: UpdateBalance) => {
-	return await Ox.DepositMoney(playerId, accountId, amount);
+	const response = await Ox.DepositMoney(playerId, accountId, amount);
+	//@todo notify
+	return response === true;
 });
 
 onClientCallback('ox_banking:withdrawMoney', async (playerId, { accountId, amount }: UpdateBalance) => {
-	return await Ox.WithdrawMoney(playerId, accountId, amount);
+	const response = await Ox.WithdrawMoney(playerId, accountId, amount);
+	//@todo notify
+	return response === true;
 });
 
 onClientCallback(
@@ -93,13 +97,14 @@ onClientCallback(
 			transferType === 'account' ? (target as number) : (await Ox.GetCharacterAccount(target))?.id;
 
 		if (targetAccountId) {
-			//@todo notify
-			return await Ox.TransferAccountBalance({
+			const response = await Ox.TransferAccountBalance({
 				fromId: fromAccountId,
 				toId: targetAccountId,
 				amount: amount,
 				actorId: player.charId,
 			});
+			//@todo notify
+			return response === true;
 		}
 	}
 );
@@ -234,6 +239,7 @@ onClientCallback(
 
 		// todo locale
 		if (!success) return 'No person with provided state id found.';
+
 		return await Ox.SetAccountAccess(accountId, stateId, role);
 	}
 );
