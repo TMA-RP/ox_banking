@@ -43,7 +43,6 @@
     "person": "Personne",
     "transfer_to": "Transférer à",
     "delete_account_message": "Êtes-vous sûr de vouloir supprimer le compte \"%s\"?",
-    "delete_account_warning": "Cette action est irréversible.",
 	"delete_account_required_balance": "Votre compte doit être vide pour pouvoir le supprimer.",
     "amount_greater_than_cash": "Le montant est supérieur aux espèces disponibles",
     "amount_greater_than_balance": "Le montant est supérieur au solde disponible",
@@ -66,5 +65,10 @@
     "state_id_not_exists": "Aucune personne avec un tel ID d'état trouvé.",
     "no_message": "Pas de message",
 	"rename_account": "Renommer le compte",
-	"rename_account_description": "Choisissez un nouveau nom pour le compte"
+	"rename_account_description": "Choisissez un nouveau nom pour le compte",
+	"convert": "Convertir",
+	"convert_account_title": "Convertir le compte",
+	"convert_account_description": "Partagez ce compte avec d'autres personnes",
+	"convert_account_warning": "Êtes-vous sûr de vouloir convertir ce compte en compte partagé?",
+	"action_irreversible": "Cette action est irréversible."
 }
