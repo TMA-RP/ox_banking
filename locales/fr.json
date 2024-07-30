@@ -29,7 +29,7 @@
     "settings": "Paramètres",
     "transfer_ownership": "Transférer la propriété",
     "convert_to_shared": "Convertir en partagé (Bientôt disponible)",
-    "rename": "Renommer (Bientôt disponible)",
+    "rename": "Renommer",
     "manage_access": "Gérer l'accès",
     "delete_account": "Supprimer le compte",
     "amount": "Montant",
@@ -43,7 +43,8 @@
     "person": "Personne",
     "transfer_to": "Transférer à",
     "delete_account_message": "Êtes-vous sûr de vouloir supprimer le compte \"%s\"?",
-    "delete_account_warning": "Cette action est irréversible et les fonds seront transférés à votre compte principal.",
+    "delete_account_warning": "Cette action est irréversible.",
+	"delete_account_required_balance": "Votre compte doit être vide pour pouvoir le supprimer.",
     "amount_greater_than_cash": "Le montant est supérieur aux espèces disponibles",
     "amount_greater_than_balance": "Le montant est supérieur au solde disponible",
     "cash_balance": "Solde en espèces",
@@ -63,5 +64,7 @@
     "remove_user_warning": "Êtes-vous sûr de vouloir supprimer l'accès au compte de l'utilisateur avec l'ID d'état %s?",
     "remove_account_access": "Supprimer l'accès au compte",
     "state_id_not_exists": "Aucune personne avec un tel ID d'état trouvé.",
-    "no_message": "Pas de message"
+    "no_message": "Pas de message",
+	"rename_account": "Renommer le compte",
+	"rename_account_description": "Choisissez un nouveau nom pour le compte"
 }

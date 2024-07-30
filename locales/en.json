@@ -43,7 +43,8 @@
   "person": "Person",
   "transfer_to": "Transfer to",
   "delete_account_message": "Are you sure you want to delete the \"%s\" account?",
-  "delete_account_warning": "This action is irreversible and the funds will be transferred to your main account.",
+  "delete_account_warning": "This action is irreversible.",
+  "delete_account_required_balance": "Account balance must be 0 before you can delete it.",
   "amount_greater_than_cash": "Amount is greater than available cash",
   "amount_greater_than_balance": "Amount is greater than available balance",
   "cash_balance": "Cash balance",
@@ -63,5 +64,7 @@
   "remove_user_warning": "Are you sure you want to remove account access from the user with state id %s?",
   "remove_account_access": "Remove account access",
   "state_id_not_exists": "No person with such state id found.",
-  "no_message": "No message"
+  "no_message": "No message",
+  "rename_account": "Rename account",
+  "rename_account_description": "Choose a new name for this account"
 }

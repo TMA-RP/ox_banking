@@ -56,9 +56,16 @@ onClientCallback('ox_banking:createAccount', async (playerId, { name, shared }: 
 
 onClientCallback('ox_banking:deleteAccount', async (playerId, accountId: number) => {
 	const player = GetPlayer(playerId);
+	const account = await Ox.GetAccountById(accountId);
 
-	if (!player?.hasAccountPermission(accountId, 'closeAccount')) return;
-	console.log("la")
+	if (!account || !player) return;
+
+	if (account.balance > 0) return;
+
+	const hasPermission = await player.hasAccountPermission(accountId, 'closeAccount');
+
+	if (!hasPermission) return;
+
 	return await Ox.DeleteAccount(accountId);
 });
 
@@ -91,7 +98,7 @@ onClientCallback(
 	async (playerId, { fromAccountId, target, transferType, amount }: TransferBalance) => {
 		const player = GetPlayer(playerId);
 
-		if (!player?.hasAccountPermission(fromAccountId, 'withdraw')) return;
+		if (!(await player?.hasAccountPermission(fromAccountId, 'withdraw'))) return;
 
 		const targetAccountId =
 			transferType === 'account' ? (target as number) : (await Ox.GetCharacterAccount(target))?.id;
@@ -233,7 +240,7 @@ onClientCallback(
 	) => {
 		const player = GetPlayer(playerId);
 
-		if (!player?.hasAccountPermission(accountId, 'addUser')) return;
+		if (!(await player?.hasAccountPermission(accountId, 'addUser'))) return;
 
 		const success = await oxmysql.prepare('SELECT 1 FROM `characters` WHERE `stateId` = ?', [stateId]);
 
@@ -256,7 +263,7 @@ onClientCallback(
 	): Promise<boolean> => {
 		const player = GetPlayer(playerId);
 
-		if (!player?.hasAccountPermission(data.accountId, 'manageUser')) return;
+		if (!(await player?.hasAccountPermission(data.accountId, 'manageUser'))) return;
 
 		return (await Ox.SetAccountAccess(data.accountId, data.targetStateId, data.values.role)) > 0;
 	}
@@ -265,7 +272,7 @@ onClientCallback(
 onClientCallback('ox_banking:removeUser', async (playerId, data: { targetStateId: string; accountId: number }) => {
 	const player = GetPlayer(playerId);
 
-	if (!player?.hasAccountPermission(data.accountId, 'removeUser')) return;
+	if (!(await player?.hasAccountPermission(data.accountId, 'removeUser'))) return;
 
 	return await Ox.RemoveAccountAccess(data.accountId, data.targetStateId);
 });
@@ -281,7 +288,7 @@ onClientCallback(
 	): Promise<true | 'state_id_not_exists'> => {
 		const player = GetPlayer(playerId);
 
-		if (!player?.hasAccountPermission(data.accountId, 'transferOwnership')) return;
+		if (!(await player?.hasAccountPermission(data.accountId, 'transferOwnership'))) return;
 
 		const targetCharId = await oxmysql.prepare<number | null>('SELECT `charId` FROM `characters` WHERE `stateId` = ?', [
 			data.targetStateId,
@@ -304,3 +311,16 @@ onClientCallback(
 		return true;
 	}
 );
+
+onClientCallback('ox_banking:renameAccount', async (playerId, data: { accountId: number; name: string }) => {
+	const player = GetPlayer(playerId);
+
+	if (!player) return;
+
+	const hasPermission = await player.hasAccountPermission(data.accountId, 'manageAccount');
+	if (!hasPermission) return false;
+
+	await oxmysql.prepare('UPDATE `accounts` SET `label` = ? WHERE `id` = ?', [data.name, data.accountId]);
+
+	return true;
+});

@@ -107,3 +107,4 @@ serverNuiCallback('deleteAccount');
 serverNuiCallback('depositMoney');
 serverNuiCallback('withdrawMoney');
 serverNuiCallback('transferMoney');
+serverNuiCallback('renameAccount');
