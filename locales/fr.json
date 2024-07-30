@@ -70,5 +70,6 @@
 	"convert_account_title": "Convertir le compte",
 	"convert_account_description": "Partagez ce compte avec d'autres personnes",
 	"convert_account_warning": "Êtes-vous sûr de vouloir convertir ce compte en compte partagé?",
-	"action_irreversible": "Cette action est irréversible."
+	"action_irreversible": "Cette action est irréversible.",
+	"viewer": "Spectateur"
 }
