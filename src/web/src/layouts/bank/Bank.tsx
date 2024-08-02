@@ -16,57 +16,57 @@ import { AccountPermissions, AccountRole } from '@/typings';
 import permissions, { setPermissions } from '../../permissions';
 
 const Bank: React.FC = () => {
-    const setCharacter = useSetCharacter();
-    const setContainer = useSetModalContainer();
-    const visible = useBankVisibility();
-    const setVisible = useSetBankVisibility();
+  const setCharacter = useSetCharacter();
+  const setContainer = useSetModalContainer();
+  const visible = useBankVisibility();
+  const setVisible = useSetBankVisibility();
 
-    useNuiEvent(
-        'setInitData',
-        (data: { locales: typeof locales; permissions: Record<AccountRole, AccountPermissions> }) => {
-            setLocale(data.locales);
-            setPermissions(data.permissions);
-        }
-    );
+  useNuiEvent(
+    'setInitData',
+    (data: { locales: typeof locales; permissions: Record<AccountRole, AccountPermissions> }) => {
+      setLocale(data.locales);
+      setPermissions(data.permissions);
+    }
+  );
 
-    useNuiEvent('openBank', (data: Character) => {
-        setVisible(true);
-        setCharacter(data);
-        console.log(permissions);
-    });
+  useNuiEvent('openBank', (data: Character) => {
+    setVisible(true);
+    setCharacter(data);
+    console.log(permissions);
+  });
 
-    const handleESC = (e: KeyboardEvent) => {
-        if (e.key !== 'Escape') return;
-        setVisible(false);
-        fetchNui('exit');
-    };
+  const handleESC = (e: KeyboardEvent) => {
+    if (e.key !== 'Escape') return;
+    setVisible(false);
+    fetchNui('exit');
+  };
 
-    React.useEffect(() => {
-        window.addEventListener('keydown', handleESC);
+  React.useEffect(() => {
+    window.addEventListener('keydown', handleESC);
 
-        return () => window.removeEventListener('keydown', handleESC);
-    }, []);
+    return () => window.removeEventListener('keydown', handleESC);
+  }, []);
 
-    return (
-        <>
-            {visible && (
-                <div
-                    className="bg-background relative flex h-[768px] w-[1280px] rounded-lg"
-                    id="bank-container"
-                    ref={setContainer}
-                >
-                    <ModalsProvider>
-                        <Navbar />
-                        <Routes>
-                            <Route path="/" element={<Dashboard />} />
-                            <Route path="/accounts" element={<Accounts />} />
-                            <Route path="/accounts/manage-access/:accountId" element={<ManageAccess />} />
-                        </Routes>
-                    </ModalsProvider>
-                </div>
-            )}
-        </>
-    );
+  return (
+    <>
+      {visible && (
+        <div
+          className="bg-background relative flex h-[768px] w-[1280px] rounded-lg"
+          id="bank-container"
+          ref={setContainer}
+        >
+          <ModalsProvider>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/accounts" element={<Accounts />} />
+              <Route path="/accounts/manage-access/:accountId" element={<ManageAccess />} />
+            </Routes>
+          </ModalsProvider>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default Bank;
