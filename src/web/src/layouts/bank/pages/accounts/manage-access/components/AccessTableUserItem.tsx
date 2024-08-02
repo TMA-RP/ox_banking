@@ -8,53 +8,53 @@ import RemoveUserModal from '@/layouts/bank/pages/accounts/manage-access/modals/
 import locales from '@/locales';
 
 const AccessTableUserItem: React.FC<AccessTableUser & { accountId: number; characterRole: AccountRole }> = (props) => {
-	const { role, name, stateId, characterRole, accountId } = props;
-	const modal = useModal();
+    const { role, name, stateId, characterRole, accountId } = props;
+    const modal = useModal();
 
-	const ROLES: Record<AccountRole, string> = React.useMemo(
-		() => ({
-			owner: locales.owner,
-			manager: locales.manager,
-			contributor: locales.contributor,
-			viewer: locales.viewer,
-		}),
-		[]
-	);
+    const ROLES: Record<AccountRole, string> = React.useMemo(
+        () => ({
+            owner: locales.owner,
+            manager: locales.manager,
+            contributor: locales.contributor,
+            viewer: locales.viewer,
+        }),
+        []
+    );
 
-	return (
-		<div className="border-border grid grid-cols-4 place-items-center border-t py-4">
-			<p>{name}</p>
-			<p>{ROLES[role]}</p>
-			<p>{stateId}</p>
-			<div className="flex items-center gap-2">
-				<Button
-					disabled={role === 'owner' || role === characterRole}
-					size="icon"
-					onClick={() =>
-						modal.open({
-							title: locales.manage_access,
-							children: <ManageUserModal accountId={accountId} targetStateId={stateId} defaultRole={role} />,
-						})
-					}
-				>
-					<UserCog size={20} />
-				</Button>
-				<Button
-					disabled={role === 'owner' || role === characterRole}
-					size="icon"
-					variant="destructive"
-					onClick={() =>
-						modal.open({
-							title: locales.remove_user,
-							children: <RemoveUserModal targetStateId={stateId} accountId={accountId} />,
-						})
-					}
-				>
-					<UserMinus size={20} />
-				</Button>
-			</div>
-		</div>
-	);
+    return (
+        <div className="border-border grid grid-cols-4 place-items-center border-t py-4">
+            <p>{name}</p>
+            <p>{ROLES[role]}</p>
+            <p>{stateId}</p>
+            <div className="flex items-center gap-2">
+                <Button
+                    disabled={role === 'owner' || role === characterRole}
+                    size="icon"
+                    onClick={() =>
+                        modal.open({
+                            title: locales.manage_access,
+                            children: <ManageUserModal accountId={accountId} targetStateId={stateId} defaultRole={role} />,
+                        })
+                    }
+                >
+                    <UserCog size={20} />
+                </Button>
+                <Button
+                    disabled={role === 'owner' || role === characterRole}
+                    size="icon"
+                    variant="destructive"
+                    onClick={() =>
+                        modal.open({
+                            title: locales.remove_user,
+                            children: <RemoveUserModal targetStateId={stateId} accountId={accountId} />,
+                        })
+                    }
+                >
+                    <UserMinus size={20} />
+                </Button>
+            </div>
+        </div>
+    );
 };
 
 export default AccessTableUserItem;
