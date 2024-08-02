@@ -72,5 +72,6 @@
 	"convert_account_warning": "Êtes-vous sûr de vouloir convertir ce compte en compte partagé?",
 	"action_irreversible": "Cette action est irréversible.",
 	"add_user": "Ajouter un utilisateur",
+	"account_role": "Rôle du compte",
 	"viewer": "Spectateur"
 }
