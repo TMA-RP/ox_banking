@@ -9,28 +9,45 @@ import { OxAccountPermissions, OxAccountRoles } from '@overextended/ox_core';
 const usingTarget = GetConvarInt('ox_banking:target', 0) === 1;
 let hasLoadedUi = false;
 let isUiOpen = false;
+let isATMopen = false;
+
+function initUI() {
+  if (hasLoadedUi) return;
+
+  const accountRoles: OxAccountRoles[] = GlobalState.accountRoles;
+
+  // @ts-expect-error
+  const permissions: Record<OxAccountRoles, OxAccountPermissions> = {};
+
+  accountRoles.forEach((role) => {
+    permissions[role] = GlobalState[`accountRole.${role}`] as OxAccountPermissions;
+  });
+
+  SendNUIMessage({
+    action: 'setInitData',
+    data: {
+      locales: getLocales(),
+      permissions,
+    },
+  });
+
+  hasLoadedUi = true;
+}
+
+const openATM = () => {
+  initUI();
+
+  isUiOpen = true;
+  isATMopen = true;
+
+  SendTypedNUIMessage('openATM', null);
+  SetNuiFocus(true, true);
+};
+
+exports('openATM', openATM);
 
 const openBank = () => {
-  if (!hasLoadedUi) {
-    const accountRoles: OxAccountRoles[] = GlobalState.accountRoles;
-
-    // @ts-expect-error
-    const permissions: Record<OxAccountRoles, OxAccountPermissions> = {};
-
-    accountRoles.forEach((role) => {
-      permissions[role] = GlobalState[`accountRole.${role}`] as OxAccountPermissions;
-    });
-
-    SendNUIMessage({
-      action: 'setInitData',
-      data: {
-        locales: getLocales(),
-        permissions,
-      },
-    });
-
-    hasLoadedUi = true;
-  }
+  initUI();
 
   const playerCash: number = exports.ox_inventory.GetItemCount('money');
   isUiOpen = true;
@@ -64,8 +81,7 @@ if (usingTarget) {
       icon: 'fa-solid fa-money-check',
       label: 'Accéder au distributeur',
       onSelect: () => {
-        // todo: open atm
-        openBank();
+        openATM();
       },
     }
   );
@@ -96,12 +112,13 @@ if (usingTarget) {
 
 RegisterNuiCallback('exit', () => {
   isUiOpen = false;
+  isATMopen = false;
 
   SetNuiFocus(false, false);
 });
 
 on('ox_inventory:itemCount', (itemName: string, count: number) => {
-  if (!isUiOpen || itemName !== 'money') return;
+  if (!isUiOpen || isATMopen || itemName !== 'money') return;
 
   SendTypedNUIMessage<Character>('openBank', { cash: count });
 });
