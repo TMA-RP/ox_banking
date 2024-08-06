@@ -66,7 +66,6 @@ onClientCallback('ox_banking:depositMoney', async (playerId, { accountId, amount
 });
 
 onClientCallback('ox_banking:withdrawMoney', async (playerId, { accountId, amount }: UpdateBalance) => {
-  console.log(accountId, amount);
   const response = await Ox.WithdrawMoney(playerId, accountId, amount);
   //@todo notify
   return response === true;
@@ -128,6 +127,11 @@ onClientCallback('ox_banking:getDashboardData', async (playerId): Promise<Dashbo
     [account.id, account.id, account.id, account.id]
   );
 
+  overview.forEach((day) => {
+    day.income = parseInt(String(day.income));
+    day.expenses = parseInt(String(day.expenses));
+  });
+
   const lastTransactions = await oxmysql.rawExecute<
     {
       amount: number;
@@ -141,7 +145,7 @@ onClientCallback('ox_banking:getDashboardData', async (playerId): Promise<Dashbo
     SELECT amount, DATE_FORMAT(date, '%d/%m/%Y %H:%i') as date, toId, fromId, message
     FROM accounts_transactions
     WHERE toId = ? OR fromId = ?
-    ORDER BY date DESC
+    ORDER BY id DESC
     LIMIT 5
     `,
     [account.id, account.id]
