@@ -100,8 +100,7 @@ const AccountDetails: React.FC = () => {
         />
         <AccountButton
           onClick={() => navigate(`/accounts/logs/${account.id}`)}
-          // disabled={!hasPermission('viewHistory', account.role)}
-          disabled={true}
+          disabled={!hasPermission('viewHistory', account.role)}
           label={locales.logs}
           icon={History}
         />

@@ -42,6 +42,7 @@
 	"group_account": "Group account",
 	"invalid_account_number": "Invalid account number",
 	"logs": "Logs",
+	"logs_search": "Search by name or message...",
 	"manage_access": "Manage access",
 	"manage_user": "Manage user",
 	"manager": "Manager",
