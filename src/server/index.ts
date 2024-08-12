@@ -356,6 +356,9 @@ onClientCallback('ox_banking:getLogs', async (playerId, data: { accountId: numbe
     queryParams.push(formattedDates.from, formattedDates.to);
   }
 
+  const queryWhere = `WHERE (fromId = ? OR toId = ?) AND (ac.message LIKE ? OR CONCAT(c.firstName, ' ', c.lastName) LIKE ?) ${dateSearchString}`;
+  const countQueryParams = [...queryParams];
+
   queryParams.push(filters.page * 9);
 
   const queryData = await oxmysql.rawExecute<RawLogItem[]>(
@@ -363,7 +366,7 @@ onClientCallback('ox_banking:getLogs', async (playerId, data: { accountId: numbe
           SELECT ac.id, ac.toId, ac.fromBalance, ac.toBalance, ac.message, ac.amount, DATE_FORMAT(ac.date, '%Y-%m-%d %H:%i') AS date, CONCAT(c.firstName, ' ', c.lastName) AS name
           FROM accounts_transactions ac
           LEFT JOIN characters c ON c.charId = ac.actorId
-          WHERE (fromId = ? OR toId = ?) AND (ac.message LIKE ? OR CONCAT(c.firstName, ' ', c.lastName) LIKE ?) ${dateSearchString}
+          ${queryWhere}
           ORDER BY ac.id DESC
           LIMIT 9
           OFFSET ?
@@ -376,9 +379,9 @@ onClientCallback('ox_banking:getLogs', async (playerId, data: { accountId: numbe
           SELECT COUNT(*)
           FROM accounts_transactions ac
           LEFT JOIN characters c ON c.charId = ac.actorId
-          WHERE (ac.toId = ? OR ac.fromId = ?) AND (ac.message LIKE ? OR CONCAT(c.firstName, ' ', c.lastName) LIKE ?)
+          ${queryWhere}
         `,
-    [accountId, accountId, search, search]
+    countQueryParams
   );
 
   return {
