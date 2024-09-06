@@ -89,8 +89,8 @@ onClientCallback('ox_banking:depositMoney', async (playerId, { accountId, amount
 });
 
 onClientCallback('ox_banking:withdrawMoney', async (playerId, { accountId, amount }: UpdateBalance) => {
-  console.log(accountId, amount);
-  const response = await Ox.WithdrawMoney(playerId, accountId, amount);
+  const account = await GetAccount(accountId);
+  const response = await account.withdrawMoney(playerId, amount);
   //@todo notify
   return response === true;
 });
