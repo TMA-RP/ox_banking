@@ -2,14 +2,17 @@ import React from 'react';
 import { useLogs } from '@/state/accounts';
 import LogsTableHead from './LogsTableHead';
 import LogsTableBody from './LogsTableBody';
-import LogsTableFooter from './LogsTableFooter';
 import LogsTableSkeleton from './LogsTableSkeleton';
 import { useIsLogsFiltersDebouncing } from '@/state/accounts';
+import Pagination from '@/layouts/bank/components/Pagination';
+import { useLogsFilters, useSetLogsFiltersDebounce } from '@/state/accounts';
 
 const LogsTable: React.FC<{ accountId: number }> = ({ accountId }) => {
   const [maxPages, setMaxPages] = React.useState(0);
   const { data, isLoading } = useLogs();
   const isDebouncing = useIsLogsFiltersDebouncing();
+  const filters = useLogsFilters();
+  const setFilters = useSetLogsFiltersDebounce();
 
   React.useEffect(() => {
     setMaxPages((prev) => data?.numberOfPages ?? prev);
@@ -20,12 +23,13 @@ const LogsTable: React.FC<{ accountId: number }> = ({ accountId }) => {
       {isLoading || isDebouncing ? (
         <LogsTableSkeleton />
       ) : (
-        <div>
-          <LogsTableHead />
-          <LogsTableBody logs={data?.logs ?? []} />
-        </div>
+        <LogsTableBody accountId={accountId} logs={data?.logs ?? []} />
       )}
-      <LogsTableFooter maxPages={maxPages} />
+      <Pagination
+        maxPages={maxPages}
+        page={filters.page}
+        setPage={(page) => setFilters((prev) => ({ ...prev, page }))}
+      />
     </div>
   );
 };

@@ -1,8 +1,7 @@
-import React from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import locales from '@/locales';
+import React from 'react';
 
-const LogsTableSkeleton: React.FC = () => {
+const SkeletonInvoices: React.FC = () => {
   return (
     <div className="flex flex-col gap-2">
       {Array.from({ length: 6 }).map((_, index) => (
@@ -12,4 +11,4 @@ const LogsTableSkeleton: React.FC = () => {
   );
 };
 
-export default LogsTableSkeleton;
+export default SkeletonInvoices;
