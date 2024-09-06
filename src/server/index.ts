@@ -447,7 +447,7 @@ onClientCallback(
       )
       .catch((e) => console.log(e));
 
-    console.log(JSON.stringify(queryData, null, 2));
+    // console.log(JSON.stringify(queryData, null, 2));
 
     const totalLogsCount = await oxmysql
       .prepare(
@@ -463,9 +463,9 @@ onClientCallback(
       )
       .catch((e) => console.log(e));
 
-    console.log(totalLogsCount);
+    // console.log(totalLogsCount);
 
-    console.log(Math.ceil(totalLogsCount / 6));
+    // console.log(Math.ceil(totalLogsCount / 6));
 
     return {
       numberOfPages: Math.ceil(totalLogsCount / 6),
