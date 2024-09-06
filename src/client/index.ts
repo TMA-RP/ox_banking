@@ -113,11 +113,13 @@ if (usingTarget) {
   }
 }
 
-RegisterNuiCallback('exit', () => {
+RegisterNuiCallback('exit', (_: any, cb: Function) => {
   isUiOpen = false;
   isATMopen = false;
 
   SetNuiFocus(false, false);
+
+  cb(1);
 });
 
 on('ox_inventory:itemCount', (itemName: string, count: number) => {
