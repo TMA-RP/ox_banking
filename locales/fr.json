@@ -36,6 +36,7 @@
 	"custom_amount": "Montant personnalisé",
 	"dashboard": "Tableau de bord",
 	"date": "Date",
+	"date_format": "dd/MM/yyyy HH:mm",
 	"day_friday": "Ven",
 	"day_monday": "Lun",
 	"day_saturday": "Sam",

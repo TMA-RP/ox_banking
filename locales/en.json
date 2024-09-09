@@ -36,6 +36,7 @@
 	"custom_amount": "Custom amount",
 	"dashboard": "Dashboard",
 	"date": "Date",
+	"date_format": "yyyy/MM/dd HH:mm",
 	"day_friday": "Fri",
 	"day_monday": "Mon",
 	"day_saturday": "Sat",
